@@ -1,0 +1,235 @@
+h1 {
+    margin-bottom: 30px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 60px; /* Menghindari tumpang tindih dengan navbar */
+}
+
+.audio-controls {
+    margin-top: 20px;
+}
+
+/* Ubah warna tombol ketika rekaman sedang berlangsung */
+.recording {
+    background-color: #dc3545 !important;  /* Merah untuk visualisasi sedang merekam */
+    color: white;
+}
+
+/* Indikator visual tambahan (misal, nonaktifkan tombol jika sedang rekaman) */
+.disabled {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+#audioPlayback {
+    display: none;
+}
+
+td div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+td audio {
+    margin-right: 10px; /* Menambah jarak antara audio dan tombol */
+}
+
+td button {
+    margin-left: 10px; /* Menambah jarak antara tombol dan sisi kanan */
+}
+
+.input-container {
+    margin-bottom: 15px;
+}
+
+.input-container label {
+    font-size: 1.2em;
+    margin-right: 10px;
+}
+
+.custom-input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-width: 300px;
+    font-size: 1em;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+    transition: border-color 0.3s;
+}
+
+.custom-input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+body {
+
+    padding: 0;
+ 
+ 
+    min-height: 100vh; /* Pastikan body minimal setinggi viewport */
+    
+}
+
+/* Untuk membuat navbar */
+.navbar {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.5));
+    padding: 15px;
+    border-radius: 10px; /* Memberikan efek sudut melengkung */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Memberikan sedikit bayangan */
+    backdrop-filter: blur(10px); /* Efek blur untuk kesan samar */
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+    color: white;
+  }
+  
+  .navbar-nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: #ccc; /* Warna saat hover */
+  }
+  
+  /* Tombol untuk Login */
+  .login-btn {
+    border: 1px solid white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: transparent;
+  }
+  
+  .login-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Tombol untuk Download */
+  .download-btn {
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+  }
+  
+  .download-btn:hover {
+    background-color: #ddd; /* Warna saat hover */
+  }
+  
+/* Footer Styles */
+footer {
+  background: linear-gradient(to right, #2e2e2e, #dcdcdc);
+  color: #ffffff;
+  padding: 40px 0;
+  font-family: Arial, sans-serif;
+  padding-top: 50px;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-radius: 10px; /* Memberikan efek sudut melengkung */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Memberikan sedikit bayangan */
+  backdrop-filter: blur(10px); /* Efek blur untuk kesan samar */
+  margin-top: 140px;
+}
+/* Footer Styles */
+
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-left, .footer-center, .footer-right {
+    flex-basis: 30%;
+    margin-bottom: 10px; /* Kurangi margin bawah */
+}
+
+.footer-logo {
+    width: 120px; /* Sesuaikan ukuran logo */
+    margin-bottom: 10px; /* Kurangi margin bawah untuk logo */
+}
+
+.footer-left p, .footer-right p {
+    margin: 2px 0; /* Kurangi margin antar paragraf */
+}
+
+.footer-left a, .footer-right a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+.footer-left a:hover, .footer-right a:hover {
+    text-decoration: underline;
+}
+
+.footer-center h4, .footer-right h4 {
+    margin-bottom: 10px; /* Kurangi margin bawah dari heading */
+}
+
+.social-icons {
+    display: flex;
+    gap: 8px; /* Atur jarak antar ikon sosial media */
+}
+
+.social-icons img {
+    width: 25px; /* Sesuaikan ukuran ikon agar lebih kecil */
+    filter: invert(1); /* Membuat ikon menjadi putih */
+    transition: transform 0.3s, filter 0.3s;
+}
+
+.social-icons a:hover img {
+    transform: scale(1.2);
+    filter: invert(0); /* Kembalikan warna asli saat di-hover */
+}
+
+.footer-right p {
+    margin: 5px 0; /* Kurangi margin antar paragraf di bagian kontak */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-left, .footer-center, .footer-right {
+        flex-basis: 100%;
+    }
+}
+
+html, body {
+  height: 100%; /* Pastikan tinggi halaman penuh */
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  margin-bottom: 80px; /* Sesuaikan dengan tinggi footer */
+}

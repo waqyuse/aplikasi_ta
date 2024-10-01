@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hafalanku</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/uin.png') }}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Navbar Atas (Warna Biru) -->
+
+
+    <!-- Navbar Bawah (Warna Putih) -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Halaman Utama</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('tentang_peneliti') }}">Tentang Peneliti</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Presentasi</a>
+                    </li>
+                    {% if 'username' in session %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    
+    <div class="container">
+
+        <h1 class="text-center">Sistem Aplikasi Deteksi Hafalan Al-Qur'an</h1>
+        <div class="mb-3">
+            <label for="file" class="form-label">Pilih Audio:</label>
+            <form method="POST" action="{{ url_for('save_audio') }}" enctype="multipart/form-data" id="uploadForm">
+                <div class="input-group">
+                    <input type="file" class="form-control" id="fileInput" name="file" accept="audio/wav">
+                    <button type="button" class="btn btn-primary" id="uploadButton">Unggah</button>
+                </div>
+            </form>
+            
+        </div>
+        
+        
+        <div class="input-container ">
+            <label for="namaInput">Masukan :</label>
+            <input type="text" id="namaInput" class="custom-input" placeholder="Nama Penghafal">
+        </div>
+        
+        <div class="audio-controls">
+            <button class="btn btn-success" onclick="startRecording()">Mulai Rekam</button>
+            <button class="btn btn-danger disabled" onclick="stopRecording()">Selesai Rekam</button> <!-- Disabled by default -->
+            <audio id="audioPlayback" controls class="mt-3 w-100"></audio>
+        </div>
+
+        <h3 class="mt-5">Daftar Audio Hafalan Al-Qur'an</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nama File</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody id="audioList">
+                {% for audio in audios %}
+                <tr id="row-{{ audio }}">
+                    <td>{{ audio }}</td>
+                    <td>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <audio controls>
+                                <source src="{{ url_for('uploaded_file', filename=audio) }}" type="audio/wav">
+                            </audio>
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn btn-success" onclick="detectAudio('{{ audio }}')">Deteksi</button>
+                                <button class="btn btn-danger" onclick="deleteAudio('{{ audio }}')">Hapus</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            
+            
+            
+            
+        </table>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+          <div class="footer-left">
+            <img src="{{ url_for('static', filename='images/logo2.png') }}" alt="UIN Logo" class="img-fluid mb-2" style="width: 150px;">
+
+          </div>
+          <div class="footer-center">
+            <h4>Ikuti Sosial Media</h4>
+            <div class="social-icons">
+   
+                <a href="https://www.instagram.com/waqyuse/" target="_blank" class="text-white">
+                    <img src="{{ url_for('static', filename='images/ig.png') }}" style="width: 30px;" alt="Instagram">
+                  </a>
+                  <a href="https://github.com/waqyuse" target="_blank" class="text-white">
+                    <img src="{{ url_for('static', filename='images/gh.png') }}" style="width: 30px;" alt="GitHub">
+                  </a>
+                  <a href="https://wa.me/+6287731407495" target="_blank" class="text-white">
+                    <img src="{{ url_for('static', filename='images/wa.png') }}" style="width: 30px;" alt="WhatsApp">
+                  </a>
+                  <a href="https://www.linkedin.com/feed/" target="_blank" class="text-white">
+                    <img src="{{ url_for('static', filename='images/in.png') }}" style="width: 30px;" alt="LinkedIn">
+                  </a>
+                  <a href="t.me/qyuaja" target="_blank" class="text-white">
+                    <img src="{{ url_for('static', filename='images/te.png') }}" style="width: 30px;" alt="Telegram">
+                  </a>
+            </div>
+          </div>
+          <div class="footer-right">
+            <h4>Kontak Kami</h4>
+            <p>Komplek Manglayang Regency Blok B5 No.43 006/024 Desa Cimekar, Kecamatan Cileunyi, Kabupaten Bandung</p>
+            <p>Email: <a href="swaqyu@gmail.com">swaqyu@gmail.com</a></p>
+            <p>Telepon: <a href="tel:+6287731407495">(0877) 31407495</a></p>
+          </div>
+        </div>
+      </footer>
+      
+
+
+    
+
+    <!-- Bootstrap JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
